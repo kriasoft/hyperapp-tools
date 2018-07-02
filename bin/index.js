@@ -3,12 +3,13 @@
 const currentNodeVersion = process.versions.node
 const semver = currentNodeVersion.split('.')
 const major = semver[0]
+const minor = semver[1]
 
-if (major < 8) {
+if (major < 8 || (major < 9 && minor < 3)) {
   process.stderr.write(
     `\x1b[31m` + // red
       `You are running Node ${currentNodeVersion}.\n` +
-      `Hyperapp Tools requires Node 8 or higher.\n` +
+      `Hyperapp Tools requires Node 8.3 or higher.\n` +
       `Please update your version of Node.\x1b[0m\n`,
   )
   process.exit(1)

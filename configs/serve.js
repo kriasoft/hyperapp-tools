@@ -16,6 +16,10 @@ module.exports = (env) => ({
   devMiddleware: {
     logLevel: 'silent',
     publicPath: '/',
+    writeToDisk() {
+      // There are problems with loading modules from memory on Windows, sorry :'(
+      return process.platform === 'win32'
+    },
   },
 
   // https://github.com/webpack-contrib/webpack-hot-client

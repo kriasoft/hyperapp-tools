@@ -9,7 +9,7 @@ Build automation tools for [Hyperapp Starter](https://github.com/frenzzy/hyperap
 ## Prerequisites
 
 - MacOS, Windows, or Linux
-- [Node.js](https://nodejs.org/) v8 or newer
+- [Node.js](https://nodejs.org/) v8.3 or newer
 
 ## Getting Started
 
@@ -23,26 +23,6 @@ It will create a directory called `my-app` inside the current folder.
 Inside that directory, it will generate the initial project structure
 based on [`Hyperapp Starter`](https://github.com/frenzzy/hyperapp-starter)
 and install the dependencies.
-
-_**Note:** [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)
-comes with npm 5.2 and higher (since Node 8.2)._
-
-<details>
-<summary>If you use earlier version...</summary>
-
-Install `hyperapp-create` globally:
-
-```bash
-npm install -g hyperapp-create
-```
-
-Now you can run:
-
-```bash
-hyperapp-create my-app
-```
-
-</details>
 
 ## License
 

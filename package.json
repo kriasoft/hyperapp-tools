@@ -1,6 +1,6 @@
 {
   "name": "hyperapp-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hyperapp build automation tools",
   "repository": "frenzzy/hyperapp-tools",
   "author": "Vladimir Kutepov",
@@ -13,7 +13,7 @@
     "tool"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=8.3"
   },
   "bin": {
     "hyperapp-tools": "./bin/index.js"
