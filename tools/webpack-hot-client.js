@@ -143,6 +143,12 @@ function update() {
   }
 }
 
+function getHostname(host) {
+  const hostname =
+    host === '*' || host === '0.0.0.0' || host === '::' ? window.location.hostname : host
+  return hostname === '0.0.0.0' ? 'localhost' : hostname
+}
+
 function connect(handler) {
   if (typeof WebSocket === 'undefined') {
     log.warn('WebSocket is not supported')
@@ -150,9 +156,7 @@ function connect(handler) {
   }
   const { host, port } = options.webSocket
   let open = false
-  let socket = new WebSocket(
-    `${options.https ? 'wss' : 'ws'}://${host === '*' ? window.location.hostname : host}:${port}/`,
-  )
+  let socket = new WebSocket(`${options.https ? 'wss' : 'ws'}://${getHostname(host)}:${port}/`)
 
   socket.addEventListener('open', () => {
     open = true

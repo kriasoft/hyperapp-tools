@@ -1,6 +1,6 @@
 {
   "name": "hyperapp-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Hyperapp build automation tools",
   "repository": "frenzzy/hyperapp-tools",
   "author": "Vladimir Kutepov",
