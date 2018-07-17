@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const glob = require('glob')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 const prettier = require('prettier')
 const eslint = require('eslint')
 const stylelint = require('stylelint')
@@ -64,8 +64,8 @@ module.exports = async function lint(argv) {
       } else if (!prettier.check(output, options)) {
         errorCount += 1
         process.stderr.write(
-          `\n${chalk.underline(filename)}` +
-            `  ${chalk.red('error')}  Unformatted  ${chalk.dim('prettier')}\n`,
+          `\n${tc.underline(filename)}` +
+            `  ${tc.red('error')}  Unformatted  ${tc.dim('prettier')}\n`,
         )
       }
     }
@@ -139,7 +139,7 @@ module.exports = async function lint(argv) {
   const total = errorCount + warningCount
   if (total > 0) {
     process.stderr.write(
-      `\n${chalk[errorCount === 0 ? 'yellow' : 'red'].bold(
+      `\n${tc[errorCount === 0 ? 'yellow' : 'red'].bold(
         `Found ${total} problem${total === 1 ? '' : 's'}${
           fix
             ? ` (${errorCount} error${errorCount === 1 ? '' : 's'}` +
@@ -155,7 +155,7 @@ module.exports = async function lint(argv) {
   }
 
   if ('CI' in process.env && warningCount > 0) {
-    process.stderr.write(`${chalk.red('Treating warnings as errors because CI detected.')}\n`)
+    process.stderr.write(`${tc.red('Treating warnings as errors because CI detected.')}\n`)
     return 1
   }
 
