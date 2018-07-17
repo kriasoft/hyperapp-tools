@@ -3,12 +3,11 @@
 // https://github.com/webpack/webpack
 
 const path = require('path')
-const cssnano = require('cssnano')
 const { HotModuleReplacementPlugin } = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const LastCallWebpackPlugin = require('last-call-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const getLocalIdent = require('../tools/get-local-ident')
 const targetNodeVersion = require('../tools/target-node-version')
@@ -158,37 +157,9 @@ module.exports = (env) => [
     optimization: {
       minimizer: [
         new UglifyJsPlugin(uglifyConfig({ production: env.production, browser: true })),
-        new LastCallWebpackPlugin({
-          assetProcessors: [
-            {
-              phase: LastCallWebpackPlugin.PHASES.OPTIMIZE_CHUNK_ASSETS,
-              regExp: /\.css$/,
-              async processor(assetName, asset, assets) {
-                const { source, map: prev } = asset.sourceAndMap()
-                const postcssOpts = {
-                  from: assetName,
-                  map: {
-                    inline: false,
-                    annotation: true,
-                    prev,
-                  },
-                }
-                const cssnanoOpts = cssnanoConfig({ production: env.production })
-                const result = await cssnano.process(source, postcssOpts, cssnanoOpts)
-                let map = result.map ? result.map.toJSON() : null
-                if (map) {
-                  map.sources = map.sources.map(
-                    (file) =>
-                      `webpack:///./${path.relative(process.cwd(), file).replace(/\\/g, '/')}`,
-                  )
-                  map.sourceRoot = ''
-                  map = JSON.stringify(map)
-                }
-                assets.setAsset(`${assetName}.map`, map)
-                return result.css
-              },
-            },
-          ],
+        new OptimizeCssnanoPlugin({
+          sourceMap: true,
+          cssnanoOptions: cssnanoConfig({ production: env.production }),
         }),
       ],
     },
