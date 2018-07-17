@@ -18,7 +18,7 @@ if (major < 8 || (major < 9 && minor < 3)) {
 require('dotenv').load()
 const path = require('path')
 const cp = require('child_process')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 const packageJson = require('../package.json')
 
 const args = process.argv.slice(2)
@@ -27,10 +27,10 @@ const taskIndex = args.findIndex((arg) => tasks.includes(arg))
 
 if (taskIndex === -1) {
   process.stderr.write(
-    `Unknown command ${chalk.red(JSON.stringify(args.join(' ')))}.\n` +
-      `\nUsage:\n  ${chalk.cyan(`${packageJson.name} [node-options]`)}` +
-      ` ${chalk.green(`<${tasks.join('|')}> [task-options]`)}\n` +
-      `\nExample:\n  ${chalk.cyan(packageJson.name)} ${chalk.green('start')}\n`,
+    `Unknown command ${tc.red(JSON.stringify(args.join(' ')))}.\n` +
+      `\nUsage:\n  ${tc.cyan(`${packageJson.name} [node-options]`)}` +
+      ` ${tc.green(`<${tasks.join('|')}> [task-options]`)}\n` +
+      `\nExample:\n  ${tc.cyan(packageJson.name)} ${tc.green('start')}\n`,
   )
   process.exit(1)
 }

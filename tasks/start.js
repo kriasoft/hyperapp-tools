@@ -3,7 +3,7 @@ const { ufs } = require('unionfs')
 const { patchRequire } = require('fs-monkey')
 const opn = require('opn')
 const path = require('path')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 const address = require('address')
 const webpack = require('webpack')
 const webpackServe = require('webpack-serve')
@@ -65,15 +65,15 @@ module.exports = async function start() {
     const status = compilationsCount > 0 ? 'compiling...' : 'idle (waiting for file changes)'
     process.stdout.write(
       `\nThe development server is up and running.\n\n` +
-        `${isInteractive && status ? `  ${chalk.bold('Build status:')} ${status}\n` : ''}` +
+        `${isInteractive && status ? `  ${tc.bold('Build status:')} ${status}\n` : ''}` +
         `${
           externalUrl
-            ? `  ${chalk.bold('Internal URL:')} ${internalUrl}\n` +
-              `  ${chalk.bold('External URL:')} ${externalUrl}\n`
-            : `  ${chalk.bold('URL:')} ${internalUrl}\n`
+            ? `  ${tc.bold('Internal URL:')} ${internalUrl}\n` +
+              `  ${tc.bold('External URL:')} ${externalUrl}\n`
+            : `  ${tc.bold('URL:')} ${internalUrl}\n`
         }\nNote that the development build is not optimized.` +
         `\nTo create a production build, use ` +
-        `${chalk.cyan(`${useYarn ? 'yarn' : 'npm run'} build`)}.\n\n`,
+        `${tc.cyan(`${useYarn ? 'yarn' : 'npm run'} build`)}.\n\n`,
     )
   }
 
@@ -95,7 +95,7 @@ module.exports = async function start() {
     if (stats.hasErrors()) {
       invalidCompilers.add(compiler.name)
       process.stderr.write(
-        `${chalk.red(`Failed to compile ${compiler.name}.`)}\n` +
+        `${tc.red(`Failed to compile ${compiler.name}.`)}\n` +
           `${stats.toString({ all: false, errors: true, moduleTrace: true })}\n`,
       )
       return
@@ -103,13 +103,13 @@ module.exports = async function start() {
     if (stats.hasWarnings()) {
       invalidCompilers.add(compiler.name)
       process.stdout.write(
-        `${chalk.yellow(`Compiled ${compiler.name} with warnings.`)}\n` +
+        `${tc.yellow(`Compiled ${compiler.name} with warnings.`)}\n` +
           `${stats.toString({ all: false, warnings: true, moduleTrace: true })}\n`,
       )
     } else if (isInteractive) {
       printInstructions()
     } else {
-      process.stdout.write(`${chalk.green(`Compiled ${compiler.name} successfully.`)}\n`)
+      process.stdout.write(`${tc.green(`Compiled ${compiler.name} successfully.`)}\n`)
     }
 
     if (compiler.name === 'server') {
