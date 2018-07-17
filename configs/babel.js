@@ -22,6 +22,7 @@ module.exports = {
         pragma: 'h',
         pragmaFrag: 'Fragment',
         useBuiltIns: true,
+        throwIfNamespace: false,
       },
     ],
   ],
