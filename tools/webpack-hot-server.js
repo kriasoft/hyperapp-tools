@@ -37,6 +37,7 @@ let currentHash = null
 
 function reload() {
   log.info('Reloading Server')
+  process.removeAllListeners('SIGUPDATE')
   process.emit('SIGRELOAD')
 }
 

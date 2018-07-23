@@ -13,7 +13,7 @@ const prettier = require('prettier')
 const prettierConfig = require('./configs/prettier')
 const pkg = require('./package.json')
 
-function transformFile(src, dist, targets) {
+function transformFile(src, dest, targets) {
   return new Promise((resolve, reject) => {
     babel.transformFile(
       src,
@@ -30,7 +30,7 @@ function transformFile(src, dist, targets) {
         }
 
         fs.outputFile(
-          dist,
+          dest,
           prettier.format(result.code, { ...prettierConfig, filepath: src }),
           'utf8',
           (err) => (err ? reject(err) : resolve()),

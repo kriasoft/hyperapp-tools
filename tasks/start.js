@@ -1,6 +1,4 @@
 const fs = require('fs')
-const { ufs } = require('unionfs')
-const { patchRequire } = require('fs-monkey')
 const opn = require('opn')
 const path = require('path')
 const tc = require('turbocolor')
@@ -32,9 +30,6 @@ module.exports = async function start() {
     production: false,
     compiler: multiCompiler,
     middleware(app) {
-      serverCompiler.outputFileSystem.realpathSync =
-        serverCompiler.outputFileSystem.realpathSync || ((p) => p)
-      patchRequire(ufs.use(fs).use(serverCompiler.outputFileSystem))
       app.use((ctx) => {
         let fn = require(serverPath) || {}
         if (fn.default) fn = fn.default // export default

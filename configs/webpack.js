@@ -8,9 +8,9 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
 const getLocalIdent = require('../tools/get-local-ident')
 const targetNodeVersion = require('../tools/target-node-version')
+const webpackExternals = require('../tools/webpack-externals')
 const loadConfig = require('../tools/load-config')
 
 const browsersListConfig = loadConfig('browserslist')
@@ -164,7 +164,7 @@ module.exports = (env) => [
       ],
     },
 
-    devtool: env.production ? 'source-map' : 'cheap-module-inline-source-map',
+    devtool: env.production ? 'source-map' : 'cheap-module-source-map',
   },
 
   // Configuration for the server-side bundle
@@ -176,7 +176,12 @@ module.exports = (env) => [
 
     entry: {
       server: [
-        ...(env.production ? [] : [path.resolve(__dirname, '../tools/webpack-hot-server.js')]),
+        ...(env.production
+          ? []
+          : [
+              require.resolve('source-map-support/register'),
+              path.resolve(__dirname, '../tools/webpack-hot-server.js'),
+            ]),
         './src/server.js',
       ],
     },
@@ -196,13 +201,7 @@ module.exports = (env) => [
       mainFields: ['esnext', 'module', 'main'],
     },
 
-    externals: [
-      './assets.json',
-      nodeExternals({
-        modulesFromFile: { include: ['dependencies'] },
-        whitelist: [/\.(?!(?:js|jsx|mjs|json)$).{1,5}$/],
-      }),
-    ],
+    externals: webpackExternals,
 
     module: {
       rules: [
@@ -284,6 +283,6 @@ module.exports = (env) => [
     // https://webpack.js.org/configuration/node/
     node: false,
 
-    devtool: env.production ? 'source-map' : 'cheap-module-inline-source-map',
+    devtool: env.production ? 'source-map' : 'cheap-module-source-map',
   },
 ]

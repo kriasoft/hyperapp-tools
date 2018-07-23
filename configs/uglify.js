@@ -12,6 +12,7 @@ module.exports = (env) => ({
     compress: env.browser,
     mangle: env.browser,
     output: {
+      beautify: !env.browser,
       comments: false,
     },
   },
