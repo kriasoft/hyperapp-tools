@@ -1,6 +1,6 @@
 # Contributing to Hyperapp Tools
 
-♥ [Hyperapp Tools](https://github.com/frenzzy/hyperapp-tools) and want to
+♥ [Hyperapp Tools](https://github.com/kriasoft/hyperapp-tools) and want to
 get involved? Thanks! We're actively looking for folks interested in helping
 out and there are plenty of ways you can help!
 
@@ -14,7 +14,7 @@ patches and features.
 
 ## Using the issue tracker
 
-The [issue tracker](https://github.com/frenzzy/hyperapp-tools/issues) is
+The [issue tracker](https://github.com/kriasoft/hyperapp-tools/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
@@ -104,7 +104,7 @@ included in the project:
    # Navigate to the newly cloned directory
    cd hyperapp-tools
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/frenzzy/hyperapp-tools.git
+   git remote add upstream https://github.com/kriasoft/hyperapp-tools.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
@@ -144,4 +144,4 @@ included in the project:
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project
 owners to license your work under the terms of the
-[MIT License](https://github.com/frenzzy/hyperapp-tools/blob/master/LICENSE.md).
+[MIT License](https://github.com/kriasoft/hyperapp-tools/blob/master/LICENSE.md).
