@@ -21,7 +21,7 @@ module.exports = async function lint(argv) {
       pattern,
       {
         nodir: true,
-        ignore: ['**/node_modules/**', 'build/**'],
+        ignore: ['**/node_modules/**', 'build/**', 'coverage/**'],
       },
       (error, result) => (error ? reject(error) : resolve(result)),
     ),
