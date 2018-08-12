@@ -29,7 +29,7 @@ module.exports = (env) => [
     entry: {
       app: [
         ...(env.production ? [] : [path.resolve(__dirname, '../tools/webpack-hot-client.js')]),
-        './src/index.js',
+        './src/index',
       ],
     },
 
@@ -182,7 +182,7 @@ module.exports = (env) => [
               require.resolve('source-map-support/register'),
               path.resolve(__dirname, '../tools/webpack-hot-server.js'),
             ]),
-        './src/server.js',
+        './src/server',
       ],
     },
 
