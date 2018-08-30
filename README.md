@@ -9,7 +9,7 @@ Build automation tools for [Hyperapp](https://hyperapp.js.org/) projects.
 ## Prerequisites
 
 - MacOS, Windows, or Linux
-- [Node.js](https://nodejs.org/) v8.3 or newer
+- [Node.js](https://nodejs.org/) v8.9.0 or newer
 
 ## Getting Started
 

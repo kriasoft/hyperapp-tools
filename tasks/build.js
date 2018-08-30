@@ -1,8 +1,8 @@
 const fs = require('fs-extra')
 const path = require('path')
-const tc = require('turbocolor')
 const webpack = require('webpack')
 const gzipSize = require('gzip-size')
+const { red, cyan, green, yellow } = require('colorette')
 const loadConfig = require('../tools/load-config')
 const formatFileSize = require('../tools/format-file-size')
 const render = require('../tools/render')
@@ -56,7 +56,7 @@ module.exports = async function build(argv) {
   const stats = await new Promise((resolve, reject) => {
     multiCompiler.run((error, result) => {
       if (error || result.hasErrors()) {
-        process.stderr.write(`${tc.red('Failed to compile.')}\n`)
+        process.stderr.write(`${red('Failed to compile.')}\n`)
         const options = { all: false, errors: true, moduleTrace: true }
         return reject(error || new Error(stats.toString(options)))
       }
@@ -79,7 +79,7 @@ module.exports = async function build(argv) {
     await promise
     const asset = assets[assetName]
     const file = path.join('build/public', asset.slice(publicPath.length))
-    const name = path.join(path.dirname(file), tc.cyan(path.basename(file)))
+    const name = path.join(path.dirname(file), cyan(path.basename(file)))
     const size = await gzipSize.file(file)
     const prevSize = prevSizes.get(assetName)
     const diff = prevSize ? size - prevSize : 0
@@ -89,18 +89,18 @@ module.exports = async function build(argv) {
     const sizeWidth = sizeToPrint.length + (diff ? diffToPrint.length + 3 : 0)
 
     if (size >= 1024 * 250 /* 250 KiB */) {
-      sizeToPrint = tc.red(sizeToPrint)
+      sizeToPrint = red(sizeToPrint)
     } else if (size >= 1024 * 100 /* 100 KiB */) {
-      sizeToPrint = tc.yellow(sizeToPrint)
+      sizeToPrint = yellow(sizeToPrint)
     }
 
     if (diff) {
       if (diff >= 1024 * 50 /* 50 KiB */) {
-        diffToPrint = tc.red(diffToPrint)
+        diffToPrint = red(diffToPrint)
       } else if (diff > 0) {
-        diffToPrint = tc.yellow(diffToPrint)
+        diffToPrint = yellow(diffToPrint)
       } else {
-        diffToPrint = tc.green(diffToPrint)
+        diffToPrint = green(diffToPrint)
       }
       sizeToPrint += ` (${diffToPrint})`
     }
@@ -111,32 +111,32 @@ module.exports = async function build(argv) {
 
   // Print compilation warnings if any
   if (stats.hasWarnings()) {
-    process.stdout.write(`${tc.yellow('Compiled with warnings.')}\n`)
+    process.stdout.write(`${yellow('Compiled with warnings.')}\n`)
     const message = stats.toString({ all: false, warnings: true, moduleTrace: true })
 
     if ('CI' in process.env) {
-      process.stderr.write(`${tc.red('Treating warnings as errors because CI detected.')}\n`)
+      process.stderr.write(`${red('Treating warnings as errors because CI detected.')}\n`)
       throw new Error(message)
     }
 
     process.stdout.write(`${message}\n`)
   } else {
-    process.stdout.write(`${tc.green('Compiled successfully.')}\n`)
+    process.stdout.write(`${green('Compiled successfully.')}\n`)
   }
 
   // Print results and base instructions
   const browsersList = browsersListConfig({ production: true })
-  const browsers = browsersList.map((x) => tc.cyan(x)).join(', ')
+  const browsers = browsersList.map((x) => cyan(x)).join(', ')
   process.stdout.write(
     `\nBuilt the bundle with browser support for ${browsers}.\n` +
       `File sizes after gzip:\n\n` +
       `${files
         .map((file) => `  ${file.size.padEnd(sizesWidth + file.sizeWidth)}  ${file.name}`)
         .join('\n')}\n\n` +
-      `The ${tc.cyan('build')} folder is ready to be deployed${
-        renderStatic ? ` (or the ${tc.cyan('build/public')} folder for a static site hosting)` : ''
+      `The ${cyan('build')} folder is ready to be deployed${
+        renderStatic ? ` (or the ${cyan('build/public')} folder for a static site hosting)` : ''
       }.\n` +
       `You may start a production server:\n\n` +
-      `  ${tc.cyan('node')} build/server.js\n\n`,
+      `  ${cyan('node')} build/server.js\n\n`,
   )
 }

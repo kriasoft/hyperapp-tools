@@ -5,11 +5,11 @@ const semver = currentNodeVersion.split('.')
 const major = semver[0]
 const minor = semver[1]
 
-if (major < 8 || (major < 9 && minor < 3)) {
+if (major < 8 || (major < 9 && minor < 9)) {
   process.stderr.write(
     `\x1b[31m` + // red
       `You are running Node ${currentNodeVersion}.\n` +
-      `Hyperapp Tools requires Node 8.3 or higher.\n` +
+      `Hyperapp Tools requires Node 8.9.0 or higher.\n` +
       `Please update your version of Node.\x1b[0m\n`,
   )
   process.exit(1)
@@ -18,7 +18,7 @@ if (major < 8 || (major < 9 && minor < 3)) {
 require('dotenv').load()
 const path = require('path')
 const cp = require('child_process')
-const tc = require('turbocolor')
+const { red, cyan, green } = require('colorette')
 const packageJson = require('../package.json')
 
 const args = process.argv.slice(2)
@@ -27,10 +27,10 @@ const taskIndex = args.findIndex((arg) => tasks.includes(arg))
 
 if (taskIndex === -1) {
   process.stderr.write(
-    `Unknown command ${tc.red(JSON.stringify(args.join(' ')))}.\n` +
-      `\nUsage:\n  ${tc.cyan(`${packageJson.name} [node-options]`)}` +
-      ` ${tc.green(`<${tasks.join('|')}> [task-options]`)}\n` +
-      `\nExample:\n  ${tc.cyan(packageJson.name)} ${tc.green('start')}\n`,
+    `Unknown command ${red(JSON.stringify(args.join(' ')))}.\n` +
+      `\nUsage:\n  ${cyan(`${packageJson.name} [node-options]`)}` +
+      ` ${green(`<${tasks.join('|')}> [task-options]`)}\n` +
+      `\nExample:\n  ${cyan(packageJson.name)} ${green('start')}\n`,
   )
   process.exit(1)
 }
