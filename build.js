@@ -64,7 +64,7 @@ async function build() {
   const targetNode = semver.valid(semver.coerce(pkg.engines.node))
   await transform('bin/index.js', { node: '0.1' })
   await transform('configs/*.js', { node: targetNode })
-  await transform('tasks/*.js', { node: targetNode })
+  await transform('scripts/*.js', { node: targetNode })
   await transform('tools/*.js', { node: targetNode })
   await transform('index.js', { node: targetNode })
 

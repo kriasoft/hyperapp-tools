@@ -22,14 +22,14 @@ const { red, cyan, green } = require('colorette')
 const packageJson = require('../package.json')
 
 const args = process.argv.slice(2)
-const tasks = ['start', 'build', 'test', 'lint']
-const taskIndex = args.findIndex((arg) => tasks.includes(arg))
+const scripts = ['start', 'build', 'test', 'lint']
+const scriptIndex = args.findIndex((arg) => scripts.includes(arg))
 
-if (taskIndex === -1) {
+if (scriptIndex === -1) {
   process.stderr.write(
     `Unknown command ${red(JSON.stringify(args.join(' ')))}.\n` +
       `\nUsage:\n  ${cyan(`${packageJson.name} [node-options]`)}` +
-      ` ${green(`<${tasks.join('|')}> [task-options]`)}\n` +
+      ` ${green(`<${scripts.join('|')}> [script-options]`)}\n` +
       `\nExample:\n  ${cyan(packageJson.name)} ${green('start')}\n`,
   )
   process.exit(1)
@@ -39,10 +39,10 @@ process.on('unhandledRejection', (error) => {
   throw error
 })
 
-if (taskIndex > 0) {
-  const nodeArgs = args.slice(0, taskIndex)
+if (scriptIndex > 0) {
+  const nodeArgs = args.slice(0, scriptIndex)
   const runPath = path.resolve(__dirname, '../index.js')
-  const runArgs = args.slice(taskIndex)
+  const runArgs = args.slice(scriptIndex)
   const result = cp.spawnSync('node', [...nodeArgs, runPath, ...runArgs], { stdio: 'inherit' })
 
   if (result.signal) {
@@ -64,10 +64,10 @@ if (taskIndex > 0) {
 
   process.exit(result.status)
 } else {
-  const taskPath = path.resolve(__dirname, '../tasks', args[taskIndex])
-  const taskArgs = args.slice(taskIndex + 1)
-  const task = require(taskPath)
-  task(taskArgs).then((code) => {
+  const scriptPath = path.resolve(__dirname, '../scripts', args[scriptIndex])
+  const scriptArgs = args.slice(scriptIndex + 1)
+  const script = require(scriptPath)
+  script(scriptArgs).then((code) => {
     if (code !== -1) {
       process.exit(code)
     }
