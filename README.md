@@ -60,7 +60,7 @@ PORT = 0
 BROWSER = ""
 
 # The base path for all the static files within the application in production mode.
-# Examples: `"https://cdn.example.com/"`, `"/base/path/"` or `""` for relative urls.
+# Examples: "https://cdn.example.com/", "/base/path/" or "" for relative urls.
 PUBLIC_URL = "/"
 ```
 
