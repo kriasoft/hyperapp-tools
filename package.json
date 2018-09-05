@@ -1,6 +1,6 @@
 {
   "name": "hyperapp-tools",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "Hyperapp build automation tools",
   "repository": "kriasoft/hyperapp-tools",
   "author": "Vladimir Kutepov",

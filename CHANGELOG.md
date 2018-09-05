@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2018-09-05
+
+- Update dependencies. Use Babel `v7` and ESlint `v5`.
+- Change required Node.js version from `v8.3` to `v8.9`.
+- Use pathname from `homepage` package.json field as a public path for assets in production mode.
+- Replace legacy `turbocolor` package with a brand new `colorette`.
+- Rename `tasks` to `scripts` and `tools` to `utils`.
+- Ignore `coverage` directory during linting.
+
 ## [1.2.2] - 2018-08-12
 
 - Allow `.js`, `.mjs` and `.jsx` extensions for `src/index` and `src/server` entry points.
@@ -40,7 +49,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public release.
 
-[unreleased]: https://github.com/kriasoft/hyperapp-tools/compare/v1.2.2...HEAD
+[unreleased]: https://github.com/kriasoft/hyperapp-tools/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/kriasoft/hyperapp-tools/compare/v1.2.2...v2.0.0
 [1.2.2]: https://github.com/kriasoft/hyperapp-tools/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/kriasoft/hyperapp-tools/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/kriasoft/hyperapp-tools/compare/v1.1.0...v1.2.0
