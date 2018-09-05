@@ -7,6 +7,7 @@ const loadConfig = require('../utils/load-config')
 const formatFileSize = require('../utils/format-file-size')
 const render = require('../utils/render')
 const copy = require('../utils/copy')
+const getPublicPath = require('../utils/get-public-path')
 
 const webpackConfig = loadConfig('webpack')
 const browsersListConfig = loadConfig('browserslist')
@@ -15,7 +16,7 @@ module.exports = async function build(argv) {
   process.stdout.write('Creating an optimized production build...\n')
   process.env.NODE_ENV = 'production'
   process.env.BABEL_ENV = 'production'
-  const publicPath = typeof process.env.PUBLIC_URL === 'string' ? process.env.PUBLIC_URL : '/'
+  const publicPath = getPublicPath()
   const webpackOptions = webpackConfig({ production: true, publicPath })
   const multiCompiler = webpack(webpackOptions)
 
