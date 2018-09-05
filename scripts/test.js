@@ -1,5 +1,5 @@
 const jest = require('jest')
-const loadConfig = require('../tools/load-config')
+const loadConfig = require('../utils/load-config')
 
 const jestConfig = loadConfig('jest')()
 

@@ -2,7 +2,7 @@
 // http://cssnano.co/
 // https://github.com/cssnano/cssnano
 
-const loadConfig = require('../tools/load-config')
+const loadConfig = require('../utils/load-config')
 
 const svgoConfig = loadConfig('svgo')
 

@@ -8,10 +8,10 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const getLocalIdent = require('../tools/get-local-ident')
-const targetNodeVersion = require('../tools/target-node-version')
-const webpackExternals = require('../tools/webpack-externals')
-const loadConfig = require('../tools/load-config')
+const getLocalIdent = require('../utils/get-local-ident')
+const targetNodeVersion = require('../utils/target-node-version')
+const webpackExternals = require('../utils/webpack-externals')
+const loadConfig = require('../utils/load-config')
 
 const browsersListConfig = loadConfig('browserslist')
 const cssnanoConfig = loadConfig('cssnano')
@@ -28,7 +28,7 @@ module.exports = (env) => [
 
     entry: {
       app: [
-        ...(env.production ? [] : [path.resolve(__dirname, '../tools/webpack-hot-client.js')]),
+        ...(env.production ? [] : [path.resolve(__dirname, '../utils/webpack-hot-client.js')]),
         './src/index',
       ],
     },
@@ -109,14 +109,14 @@ module.exports = (env) => [
                 {
                   loader: require.resolve('postcss-loader'),
                   options: {
-                    config: { path: path.resolve(__dirname, '../tools/postcss.config.js') },
+                    config: { path: path.resolve(__dirname, '../utils/postcss.config.js') },
                   },
                 },
               ],
             },
             {
               test: /\.svg$/,
-              loader: require.resolve('../tools/webpack-svg-loader'),
+              loader: require.resolve('../utils/webpack-svg-loader'),
               options: { name: '[name].[hash:8].[ext]' },
             },
             {
@@ -180,7 +180,7 @@ module.exports = (env) => [
           ? []
           : [
               require.resolve('source-map-support/register'),
-              path.resolve(__dirname, '../tools/webpack-hot-server.js'),
+              path.resolve(__dirname, '../utils/webpack-hot-server.js'),
             ]),
         './src/server',
       ],
@@ -251,7 +251,7 @@ module.exports = (env) => [
             },
             {
               test: /\.svg$/,
-              loader: require.resolve('../tools/webpack-svg-loader'),
+              loader: require.resolve('../utils/webpack-svg-loader'),
               options: { name: '[name].[hash:8].[ext]', emitFile: false },
             },
             {

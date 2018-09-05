@@ -65,7 +65,7 @@ async function build() {
   await transform('bin/index.js', { node: '0.1' })
   await transform('configs/*.js', { node: targetNode })
   await transform('scripts/*.js', { node: targetNode })
-  await transform('tools/*.js', { node: targetNode })
+  await transform('utils/*.js', { node: targetNode })
   await transform('index.js', { node: targetNode })
 
   // Create package.json for npm publishing

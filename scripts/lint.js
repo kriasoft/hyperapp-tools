@@ -5,7 +5,7 @@ const prettier = require('prettier')
 const eslint = require('eslint')
 const stylelint = require('stylelint')
 const { red, yellow, bold, underline, dim } = require('colorette')
-const loadConfig = require('../tools/load-config')
+const loadConfig = require('../utils/load-config')
 
 const prettierConfig = loadConfig('prettier')()
 const eslintConfig = loadConfig('eslint')()

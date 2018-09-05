@@ -10,9 +10,9 @@ module.exports = {
   moduleFileExtensions: ['js', 'json', 'jsx', 'mjs', 'node'],
   modulePathIgnorePatterns: ['<rootDir>/build/'],
   transform: {
-    '^.+\\.(js|jsx|mjs)$': path.resolve(__dirname, '../tools/babel-transform.js'),
-    '^.+\\.css$': path.resolve(__dirname, '../tools/css-transform.js'),
-    '^(?!.*\\.(js|jsx|mjs|css|json)$)': path.resolve(__dirname, '../tools/file-transform.js'),
+    '^.+\\.(js|jsx|mjs)$': path.resolve(__dirname, '../utils/babel-transform.js'),
+    '^.+\\.css$': path.resolve(__dirname, '../utils/css-transform.js'),
+    '^(?!.*\\.(js|jsx|mjs|css|json)$)': path.resolve(__dirname, '../utils/file-transform.js'),
   },
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$'],
   collectCoverageFrom: ['src/**/*.{js,jsx,mjs}'],

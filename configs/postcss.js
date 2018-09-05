@@ -5,7 +5,7 @@
 
 const postcssPresetEnv = require('postcss-preset-env')
 const autoprefixer = require('autoprefixer')
-const loadConfig = require('../tools/load-config')
+const loadConfig = require('../utils/load-config')
 
 const browsersListConfig = loadConfig('browserslist')
 
