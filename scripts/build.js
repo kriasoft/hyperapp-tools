@@ -59,7 +59,7 @@ module.exports = async function build(argv) {
       if (error || result.hasErrors()) {
         process.stderr.write(`${red('Failed to compile.')}\n`)
         const options = { all: false, errors: true, moduleTrace: true }
-        return reject(error || new Error(stats.toString(options)))
+        return reject(error || new Error(result.toString(options)))
       }
       return resolve(result)
     })

@@ -7,7 +7,7 @@ const { HotModuleReplacementPlugin } = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const getLocalIdent = require('../utils/get-local-ident')
 const targetNodeVersion = require('../utils/target-node-version')
 const webpackExternals = require('../utils/webpack-externals')
@@ -15,7 +15,7 @@ const loadConfig = require('../utils/load-config')
 
 const browsersListConfig = loadConfig('browserslist')
 const cssnanoConfig = loadConfig('cssnano')
-const uglifyConfig = loadConfig('uglify')
+const terserConfig = loadConfig('terser')
 const babelConfig = loadConfig('babel')()
 
 module.exports = (env) => [
@@ -69,6 +69,7 @@ module.exports = (env) => [
                     require.resolve('@babel/preset-env'),
                     {
                       ...babelConfig.presets[0][1],
+                      exclude: ['transform-regenerator', 'transform-async-to-generator'],
                       modules: false,
                       targets: { browsers: browsersListConfig(env) },
                       useBuiltIns: 'entry',
@@ -77,6 +78,7 @@ module.exports = (env) => [
                   ],
                   ...babelConfig.presets.slice(1),
                 ],
+                plugins: [[require.resolve('fast-async'), { spec: true }], ...babelConfig.plugins],
               },
             },
             {
@@ -155,8 +157,9 @@ module.exports = (env) => [
     ],
 
     optimization: {
+      // minimize: false,
       minimizer: [
-        new UglifyJsPlugin(uglifyConfig({ production: env.production, browser: true })),
+        new TerserPlugin(terserConfig({ production: env.production, browser: true })),
         new OptimizeCssnanoPlugin({
           sourceMap: true,
           cssnanoOptions: cssnanoConfig({ production: env.production }),
@@ -276,7 +279,7 @@ module.exports = (env) => [
 
     optimization: {
       nodeEnv: false,
-      minimizer: [new UglifyJsPlugin(uglifyConfig({ production: env.production, browser: false }))],
+      minimizer: [new TerserPlugin(terserConfig({ production: env.production, browser: false }))],
     },
 
     // Do not replace node globals with polyfills

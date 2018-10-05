@@ -22,5 +22,14 @@ module.exports = (env) => ({
     {
       removeXMLNS: env.module,
     },
+
+    // Remove unknown elements content and attributes,
+    // remove attributes with default values
+    // https://github.com/svg/svgo/blob/master/plugins/removeUnknownsAndDefaults.js
+    {
+      removeUnknownsAndDefaults: {
+        keepRoleAttr: env.module,
+      },
+    },
   ],
 })
